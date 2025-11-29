@@ -1,0 +1,129 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Listas de Compras",
+    "version": "1.0.0",
+    "description": "Documentación de la API REST para gestionar listas de compras colaborativas."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/api/listas": {
+      "get": {
+        "summary": "Obtener todas las listas de compras",
+        "responses": {
+          "200": {
+            "description": "Lista de listas de compras",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Lista"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva lista de compras",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListaNueva"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Lista creada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Lista"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          }
+        }
+      }
+    },
+    "/api/listas/{id}": {
+      "get": {
+        "summary": "Obtener una lista por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la lista"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Lista"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lista no encontrada"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Lista": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "example": "Compra quincenal"
+          },
+          "presupuesto": {
+            "type": "number",
+            "example": 200000
+          }
+        }
+      },
+      "ListaNueva": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Compra fin de semana"
+          },
+          "presupuesto": {
+            "type": "number",
+            "example": 150000
+          }
+        },
+        "required": ["nombre", "presupuesto"]
+      }
+    }
+  }
+}
