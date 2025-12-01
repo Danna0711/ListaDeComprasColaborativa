@@ -18,18 +18,21 @@ function DetalleListaPage() {
         setListaActual(res.data);
         setCargando(false);
       }
+      else{
+        setCargando(false);
+      }
     };
     cargar();
   }, [id, listaActual, setListaActual]);
 
-  if (cargando || !listaActual) {
-    return <p>Cargando detalles de la lista...</p>;
-  }
+  // if (cargando || !listaActual) {
+  //   return <p>Cargando detalles de la lista...</p>;
+  // }
 
   return (
     <div style={{ maxWidth: '600px', margin: '40px auto' }}>
       <EncabezadoLista />
-      <p>Presupuesto: ${listaActual.presupuesto}</p>
+      {/* <p>Presupuesto: ${listaActual.presupuesto}</p> */}
       <hr />
       <ItemsLista />
     </div>
